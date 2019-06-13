@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>菜谱</title>
+		<link rel="stylesheet" type="text/css" href="fonticon/iconfont.css"/>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.search{
+				width:538px;/*454+84*/
+				height: 36px;
+				margin: 100px auto;
+				position: relative;
+			}
+			.search input{
+				width: 450px;
+				height: 32px;
+				border: 2px solid #b61d1d;
+				text-indent: 1em;
+				font-size: 14px;
+				outline-style: none;
+			}
+			.search button{
+				width: 84px;
+				height: 36px;
+				border: none;
+				background-color: #b61d1d;
+				color: white;
+				font-size: 16px;
+				outline-style: none;
+				cursor: pointer;
+				/*vertical-align: bottom;*/
+				position: absolute;
+				right: 0;
+				/*float: right;*/
+			}
+			.content{
+				text-align: center;
+			}
+			p{
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="search">
+			<input type="text"  id="search" placeholder="请输入菜名" />
+			<button id="menu">
+				<i class="iconfont icon-search"></i>
+			</button>
+			<div class="content">
+				
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$("#menu").click(function(){
+		var menuName=$("#search").val();
+		var myurl="http://apis.juhe.cn/cook/query?key=d6d38af8f8dc88662689429ba49d21aa&menu="+menuName+"&rn=10&pn=1"
+//		var myurl="http://v.juhe.cn/weather/index?format=2&cityname=苏州&key=b877fad212a8d583854cd5f2f7df8257"
+	   $.ajax({
+	   	type:"get",
+	   	url:myurl,
+	   	async:true,
+	   	dataType:"jsonp", //解决跨域问题
+		crossDomain:true,//解决跨域问题
+	   	success:function(data){
+//	   		console.log(sk);
+//	   		$(".content").html(JSON.stringify(data.result.data))
+	   		formData(data);
+	   	},
+	   	error:function(err){
+	   		console.log(err);
+	   	}
+	   });
+	   
+//	   [{
+//	"id": "612",
+//	"title": "秘制红烧肉",
+//	"tags": "家常菜;私房菜;正宗红烧肉;宴客菜;毛氏红烧肉",
+//	"imtro": "利益已经让我们跑的太快，灵魂已经追不上我们追逐财富的步伐，她被我们抛在身后，默默的哭泣，无声的呐喊，而我们却无动于衷，弃之如敝履，继续埋头向前狂奔。当哪天我们跑的累了、乏了、无力了，转头再去寻找时，却发现灵魂已经被我们抛的太远，她迷路了，我们再也找不回来了。 财富，不仅仅是物质上的，还有精神上的，道德上的，所以，让我们放慢脚步，停下来，静下心来看看我们身边的世界，感受一下自然的呼吸，等等迷路的灵魂。 全文见注意事项，谢谢",
+//	"ingredients": "分层五花肉,500g",
+//	"burden": "油,适量;盐,3g;蚝油,2ml;香料,适量;二锅头,5ml;生姜葱结,少许;高汤,500ml;自制味素,2g;冰糖,6颗",
+//	"albums": ["http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/t/1/612_797453.jpg"],
+//	"steps": [{
+//		"img": "http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/7/612_4f26ce5398cb3d42.jpg",
+//		"step": "1.五花肉洗净，锋速三刮毛，切麻将块待用"
+//	}, {
+//		"img": "http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/7/612_46b141b8b467af50.jpg",
+//		"step": "2.坐锅烧水，下五花肉、姜片、二锅头飞水"
+//	}, {
+//		"img": "http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/7/612_096c9aad981e4e06.jpg",
+//		"step": "3.坐锅起油，下冰糖炒糖色"
+//	}, {
+//		"img": "http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/7/612_df807a2a1005e3bb.jpg",
+//		"step": "4.下飞水的五花肉翻炒上色，盛出待用"
+//	}, {
+//		"img": "http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/7/612_c611cfb38017cf06.jpg",
+//		"step": "5.新起油锅，下八角桂皮香叶丁香白胡椒粒干辣椒炒香"
+//	}, {
+//		"img": "http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/7/612_fee21d9b172b652b.jpg",
+//		"step": "6.下五花肉和糖色翻炒1分钟"
+//	}, {
+//		"img": "http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/7/612_2afd06b5a2d8a0da.jpg",
+//		"step": "7.下高汤、葱结，大火煮沸，转小火焖煮1小时"
+//	}, {
+//		"img": "http://juheimg.oss-cn-hangzhou.aliyuncs.com/cookbook/s/7/612_f00f0320a92b2782.jpg",
+//		"step": "8.下蚝油、味素、盐，小火焖煮1小时，大火收汁，起锅即可"
+//	}]
+//}]
+	   
+	   function formData(data){
+	   	var resultcode=data.resultcode;
+	   	if (resultcode==200) {
+	   		var result=data.result;
+	   		var dataArray=result.data;
+	   		if (dataArray.length>=1) {
+	   			$.each(dataArray, function(index) {
+	   				var title=dataArray[index].title;
+	   				$(".content").append($("<p></p>").text("标题："+title));
+	   				var imtro=dataArray[index].imtro;
+					$(".content").append($("<p></p>").text("简介："+imtro));
+					var tags=dataArray[index].tags;
+					$(".content").append($("<p></p>").text("tags:"+tags));
+					var burden=dataArray[index].burden;
+					$(".content").append($("<p></p>").text("材料："+burden));
+					var albums=dataArray[index].albums;
+					$(".content").append($("<img />").attr("src",albums[0]));
+					var steps=dataArray[index].steps;
+					$(".content").append($("<p></p>").text("制作步骤如下："));
+					for (var i=0;i<steps.length;i++) {
+						var step=steps[i].step;
+						var imgurl=steps[i].img;
+						$(".content").append($("<p></p>").text("步骤"+step));
+						$(".content").append($("<img />").attr("src",imgurl));
+					}
+					$(".content").append($("<p></p>").text("*********************"));
+					$(".content").append($("<p></p>").text("*********************"));
+					$(".content").append($("<p></p>").text("*********************"));
+					
+	   			});
+	   		}
+	   	}
+	   	
+	   }
+	   
+	   
+	});
+	</script>
+</html>
+
